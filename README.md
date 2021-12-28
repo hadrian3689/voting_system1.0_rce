@@ -10,14 +10,14 @@ Voting System 1.0 - File Upload RCE (Authenticated Remote Code Execution)
 
 * Using python3
 ```
-python3 exploit.py -t http://exploitvoting.com -u username -p password
+python3 vote_system1.0.py -t http://exploitvoting.com -u username -p password
 ```
 
 ## Help
 
 Help prompt
 ```
-python3 exploit.py -h
+python3 vote_system1.0.py -h
 ```
 
 ## Disclaimer
