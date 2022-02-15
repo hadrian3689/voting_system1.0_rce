@@ -71,9 +71,8 @@ if __name__ == "__main__":
     parser.add_argument('-p', metavar='<password>', help="Password", required=True)
     args = parser.parse_args()
 
-    while True:
-        try:
-            VoteSystem(args.t,args.u,args.p)
-        except KeyboardInterrupt:
-            print("Bye Bye")
-            exit()
+    try:
+        VoteSystem(args.t,args.u,args.p)
+    except KeyboardInterrupt:
+        print("Bye Bye")
+        exit()
