@@ -1,10 +1,8 @@
-# Project Title
+# Voting System 1.0 - File Upload RCE
 
 Voting System 1.0 - File Upload RCE (Authenticated Remote Code Execution)
 
-## Description
-
-Voting System 1.0 - File Upload RCE (Authenticated Remote Code Execution)
+## Getting Started
 
 ### Executing program
 
